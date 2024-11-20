@@ -633,5 +633,14 @@
       "response": "output",
       "images": "images"
     }
+  },
+  "ali_tianchi_vision_test1": {
+    "file_name": "test1_llama_factory_format.json",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output",
+      "images": "images"
+    }
   }
 }

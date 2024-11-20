@@ -8,7 +8,7 @@ do_predict: true
 predict_with_generate: true
 
 ### dataset
-eval_dataset: ali_tianchi_vision
+eval_dataset: ali_tianchi_vision_test1
 template: qwen2_vl
 cutoff_len: 8192
 max_samples: 10000
@@ -16,7 +16,7 @@ overwrite_cache: true
 preprocessing_num_workers: 16
 
 ### output
-output_dir: saves/qwen2_vl-7b/lora/sft_infer_20241120
+output_dir: saves/qwen2_vl-7b/lora/sft_infer_20241120_01
 logging_steps: 1
 overwrite_output_dir: true
 

@@ -171,3 +171,4 @@ wandb/
 
 # ali
 data/ali_train_images
+data/ali_test1_images
