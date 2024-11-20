@@ -168,3 +168,6 @@ config/
 saves/
 output/
 wandb/
+
+# ali
+data/ali_train_images

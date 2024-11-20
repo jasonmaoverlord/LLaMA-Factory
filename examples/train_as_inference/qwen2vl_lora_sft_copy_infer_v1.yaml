@@ -1,0 +1,29 @@
+### model
+model_name_or_path: /home/pod/shared-nvme/models/Qwen/Qwen2-VL-7B-Instruct
+
+### method
+stage: sft
+do_train: false
+do_predict: true
+predict_with_generate: true
+
+### dataset
+eval_dataset: ali_tianchi_vision
+template: qwen2_vl
+cutoff_len: 8192
+max_samples: 10000
+overwrite_cache: true
+preprocessing_num_workers: 16
+
+### output
+output_dir: saves/qwen2_vl-7b/lora/sft_infer_20241120
+logging_steps: 1
+overwrite_output_dir: true
+
+### eval
+per_device_eval_batch_size: 1
+
+### generation
+max_new_tokens: 128
+temperature: 0.1
+top_k: 1

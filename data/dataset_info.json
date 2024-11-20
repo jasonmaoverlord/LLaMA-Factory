@@ -624,5 +624,14 @@
       "prompt": "content"
     },
     "folder": "python"
+  },
+  "ali_tianchi_vision": {
+    "file_name": "train_llama_factory_format.json",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output",
+      "images": "images"
+    }
   }
 }
