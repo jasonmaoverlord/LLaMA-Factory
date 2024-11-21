@@ -1,30 +1,25 @@
 ### model
-model_name_or_path: /home/pod/shared-nvme/projects/LLaMA-Factory/models/qwen2_vl_lora_sft_20241121
+model_name_or_path: /home/pod/shared-nvme/models/Qwen/Qwen2-VL-7B-Instruct
+adapter_name_or_path: saves/qwen2_vl-7b/lora/sft_20241120
 
 ### method
 stage: sft
-do_train: false
 do_predict: true
+finetuning_type: lora
 
 ### dataset
 eval_dataset: ali_tianchi_vision_test1
 template: qwen2_vl
-cutoff_len: 2048
-max_samples: 100
+cutoff_len: 4096
+max_samples: 50000
 overwrite_cache: true
 preprocessing_num_workers: 16
 
 ### output
-output_dir: saves/qwen2_vl-7b/lora/sft_infer_20241121_01
-logging_steps: 1
+output_dir: saves/qwen2_vl-7b/lora/sft_infer_20241121_02
 overwrite_output_dir: true
 
 ### eval
 per_device_eval_batch_size: 1
 predict_with_generate: true
 ddp_timeout: 180000000
-
-### generation
-max_new_tokens: 128
-temperature: 0.1
-top_k: 1

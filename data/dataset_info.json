@@ -639,7 +639,7 @@
     "columns": {
       "prompt": "instruction",
       "query": "input",
-      "response": "output",
+      "response": "id",
       "images": "images"
     }
   }
