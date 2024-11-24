@@ -1,6 +1,6 @@
 ### model
-model_name_or_path: /home/pod/shared-nvme/models/Qwen/Qwen2-VL-7B-Instruct
-adapter_name_or_path: saves/qwen2_vl-7b/lora/sft_20241120
+model_name_or_path: /root/autodl-fs/models/Qwen/Qwen2-VL-7B-Instruct
+adapter_name_or_path: saves/qwen2_vl-7b/lora/sft_train_20241121_02
 
 ### method
 stage: sft
