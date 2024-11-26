@@ -5,37 +5,37 @@ model_name_or_path: /root/autodl-fs/models/Qwen/Qwen2-VL-7B-Instruct
 stage: sft
 do_train: true
 finetuning_type: full
-deepspeed: examples/ds_config/zero2_offload.json
 
 ### dataset
-dataset: ali_tianchi_vision
+dataset: ali_tianchi_vision  # video: mllm_video_demo
 template: qwen2_vl
 cutoff_len: 1024
-max_samples: 1000
+max_samples: 10000
 overwrite_cache: true
 preprocessing_num_workers: 16
 
 ### output
-output_dir: /root/autodl-tmp/projects/LLaMA-Factory/saves/qwen2_vl-7b/full/sft_train_20241126_01
-logging_steps: 10
-save_steps: 100
+output_dir: saves/qwen2_vl-7b/full/sft_train_20241124_01
+logging_steps: 1
+save_steps: 0.2
 plot_loss: true
 overwrite_output_dir: true
 
 ### train
-per_device_train_batch_size: 1
-gradient_accumulation_steps: 1
-learning_rate: 1.0e-5
+per_device_train_batch_size: 4
+gradient_accumulation_steps: 2
+learning_rate: 5.0e-6
 num_train_epochs: 3.0
 lr_scheduler_type: cosine
-warmup_ratio: 0.1
-# bf16: true
+warmup_ratio: 0.05
 fp16: true
 ddp_timeout: 180000000
 
 ### eval
 val_size: 0.1
-per_device_eval_batch_size: 1
+per_device_eval_batch_size: 8
 eval_strategy: steps
-eval_steps: 200
-save_total_limit: 2
+eval_steps: 5
+
+flash_attn: fa2
+deepspeed: examples/deepspeed/ds_z3_offload_config.json
