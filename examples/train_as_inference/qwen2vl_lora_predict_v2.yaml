@@ -1,6 +1,6 @@
 ### model
 model_name_or_path: /root/autodl-fs/models/Qwen/Qwen2-VL-7B-Instruct
-adapter_name_or_path: saves/qwen2_vl-7b/lora/sft_train_20241121_02
+adapter_name_or_path: saves/qwen2_vl-7b/lora/sft_train_20241203_01
 
 ### method
 stage: sft
@@ -10,13 +10,13 @@ finetuning_type: lora
 ### dataset
 eval_dataset: ali_tianchi_vision_test1
 template: qwen2_vl
-cutoff_len: 4096
+cutoff_len: 10240
 max_samples: 50000
 overwrite_cache: true
 preprocessing_num_workers: 16
 
 ### output
-output_dir: saves/qwen2_vl-7b/lora/sft_infer_20241121_02
+output_dir: saves/qwen2_vl-7b/lora/sft_infer_20241203_01
 overwrite_output_dir: true
 
 ### eval

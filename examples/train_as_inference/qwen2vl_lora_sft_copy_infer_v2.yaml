@@ -15,7 +15,7 @@ overwrite_cache: true
 preprocessing_num_workers: 16
 
 ### output
-output_dir: saves/qwen2_vl-7b/full/sft_infer_20241128_01
+output_dir: saves/qwen2_vl-7b/full/sft_infer_20241128_02
 logging_steps: 1
 overwrite_output_dir: true
 
@@ -23,8 +23,3 @@ overwrite_output_dir: true
 per_device_eval_batch_size: 1
 predict_with_generate: true
 ddp_timeout: 180000000
-
-### generation
-max_new_tokens: 128
-temperature: 0.1
-top_k: 1
