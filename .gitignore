@@ -171,6 +171,7 @@ config/
 saves/
 output/
 wandb/
+generated_predictions.jsonl
 
 # ali
 data/ali_train_images
