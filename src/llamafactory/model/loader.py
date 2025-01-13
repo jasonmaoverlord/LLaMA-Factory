@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
 from typing import TYPE_CHECKING, Any, Dict, Optional, TypedDict
 
 import torch
@@ -52,7 +53,7 @@ def _get_init_kwargs(model_args: "ModelArguments") -> Dict[str, Any]:
     skip_check_imports()
     model_args.model_name_or_path = try_download_model_from_other_hub(model_args)
     return {
-        "trust_remote_code": True,
+        "trust_remote_code": model_args.trust_remote_code,
         "cache_dir": model_args.cache_dir,
         "revision": model_args.model_revision,
         "token": model_args.hf_hub_token,
@@ -155,7 +156,7 @@ def load_model(
                 load_class = AutoModelForCausalLM
 
             if model_args.train_from_scratch:
-                model = load_class.from_config(config, trust_remote_code=True)
+                model = load_class.from_config(config, trust_remote_code=model_args.trust_remote_code)
             else:
                 model = load_class.from_pretrained(**init_kwargs)
 
@@ -202,12 +203,8 @@ def load_model(
 
     logger.info_rank0(param_stats)
 
-    if model_args.print_param_status:
+    if model_args.print_param_status and int(os.getenv("LOCAL_RANK", "0")) == 0:
         for name, param in model.named_parameters():
-            print(
-                "name: {}, dtype: {}, device: {}, trainable: {}".format(
-                    name, param.dtype, param.device, param.requires_grad
-                )
-            )
+            print(f"name: {name}, dtype: {param.dtype}, device: {param.device}, trainable: {param.requires_grad}")
 
     return model

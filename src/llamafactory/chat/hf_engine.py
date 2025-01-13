@@ -63,7 +63,7 @@ class HuggingfaceEngine(BaseEngine):
         try:
             asyncio.get_event_loop()
         except RuntimeError:
-            logger.warning_once("There is no current event loop, creating a new one.")
+            logger.warning_rank0_once("There is no current event loop, creating a new one.")
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
 
@@ -171,6 +171,9 @@ class HuggingfaceEngine(BaseEngine):
             elif not isinstance(value, torch.Tensor):
                 value = torch.tensor(value)
 
+            if torch.is_floating_point(value):  # cast data dtype for paligemma
+                value = value.to(model.dtype)
+
             gen_kwargs[key] = value.to(model.device)
 
         return gen_kwargs, prompt_length
@@ -205,7 +208,9 @@ class HuggingfaceEngine(BaseEngine):
         )
         generate_output = model.generate(**gen_kwargs)
         response_ids = generate_output[:, prompt_length:]
-        response = tokenizer.batch_decode(response_ids, skip_special_tokens=True, clean_up_tokenization_spaces=True)
+        response = tokenizer.batch_decode(
+            response_ids, skip_special_tokens=generating_args["skip_special_tokens"], clean_up_tokenization_spaces=True
+        )
         results = []
         for i in range(len(response)):
             eos_index = (response_ids[i] == tokenizer.eos_token_id).nonzero()
@@ -249,7 +254,9 @@ class HuggingfaceEngine(BaseEngine):
             videos,
             input_kwargs,
         )
-        streamer = TextIteratorStreamer(tokenizer, skip_prompt=True, skip_special_tokens=True)
+        streamer = TextIteratorStreamer(
+            tokenizer, skip_prompt=True, skip_special_tokens=generating_args["skip_special_tokens"]
+        )
         gen_kwargs["streamer"] = streamer
         thread = Thread(target=model.generate, kwargs=gen_kwargs, daemon=True)
         thread.start()
