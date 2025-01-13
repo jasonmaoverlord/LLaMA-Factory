@@ -650,5 +650,13 @@
       "response": "id",
       "images": "images"
     }
+  },
+  "mooc_course_train": {
+    "file_name": "mooccourse_ft_data_0113.json",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output"
+    }
   }
 }
